@@ -9,10 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "lucide-react": "^0.503.0",
+    "mysql2": "^3.14.0",
     "next": "15.3.1",
+    "next-auth": "5.0.0-beta.26",
     "pnpm": "^10.8.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
