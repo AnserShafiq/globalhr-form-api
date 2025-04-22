@@ -10,17 +10,34 @@ export default function JobSeekersForms(){
     const [companyContact2, setCompanyContact2] = useState<string>("");
     const [experience, setExperience] = useState<string>("");
     const [resume, setResume] = useState<File | null>(null);
-
+    const [submission, setSubmission] = useState<boolean>(false);
     const [termsCheck, setTermsCheck] = useState({
         one: false,
         two: false,
     })
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData);
         console.log("Form submitted: ", data);
+        try{
+            const response = await fetch(`/api/job-seekers/application`, {
+                method: 'POST',
+                body: formData,
+            });
+            if(response.ok){
+                alert('Application submitted successfully');
+                setSubmission(true);
+            }else{
+                alert('Application submission failed');
+            }
+        }
+        // eslint-disable-next-line
+        catch(error:any){
+            console.error('Error submitting application');
+            alert('An error occurred while submitting the application. Please try again later.');
+        }
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +47,10 @@ export default function JobSeekersForms(){
         }
     }
 
-    return(
+    
+    return submission ? <div className="bg-gray-300 rounded-md p-6 flex flex-col items-center justify-center">
+        <h2 className="text-4xl font-normal font-poppins text-center">Application submitted successfully</h2>
+    </div> : (
         <div className="bg-gray-300 rounded-md p-6 flex flex-col">
             <h2 className="text-lg font-normal font-poppins ">Fill the form given below, we will reach back to you shortly.</h2>
             <form className="mt-4" onSubmit={handleSubmit}>
