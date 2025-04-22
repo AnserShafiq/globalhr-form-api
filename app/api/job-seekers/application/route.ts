@@ -12,7 +12,7 @@ const auth = new google.auth.GoogleAuth({
 });
 
 const drive = google.drive({version: 'v3', auth});
-const sheets = google.sheets({version: 'v4', auth});
+// const sheets = google.sheets({version: 'v4', auth});
 
 export async function POST(req: NextRequest){
     try{
@@ -74,49 +74,49 @@ export async function POST(req: NextRequest){
                 formData.get('12-hours'),
                 fileUrl
              ]);
-             const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-             const range = 'Sheet1!A1';             
-             await sheets.spreadsheets.values.append({
-                spreadsheetId,
-                range,
-                valueInputOption: 'RAW',
-                requestBody: {
-                    values: [[
-                        formData.get('firstName'),
-                        formData.get('lastName'),
-                        formData.get('email'),
-                        formData.get('contactNumber'),
-                        formData.get('dateOfBirth'),
-                        formData.get('gender'),
-                        formData.get('address'),
-                        formData.get('residentialStatus'),
-                        formData.get('ethnicity'),
-                        formData.get('latestCompletedQualification'),
-                        formData.get('instituteName'),
-                        formData.get('startingYear'),
-                        formData.get('completionYear'),
-                        formData.get('experience'),
-                        formData.get('companyName1'),
-                        formData.get('jobTitle1'),
-                        formData.get('companyContact1'),
-                        formData.get('startingDate1'),
-                        formData.get('endingDate1'),
-                        formData.get('reasonForLeaving1'),
-                        formData.get('companyName2'),   
-                        formData.get('jobTitle2'),
-                        formData.get('companyContact2'),
-                        formData.get('startingDate2'),
-                        formData.get('endingDate2'),
-                        formData.get('reasonForLeaving2'),
-                        formData.get('industry'),
-                        formData.get('jobType'),
-                        formData.get('preferredShift'),
-                        formData.get('englishProficiency'),
-                        formData.get('12-hours'),
-                        fileUrl
-                    ]]
-                }
-            });
+            //  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+            //  const range = 'Sheet1!A1';             
+            //  await sheets.spreadsheets.values.append({
+            //     spreadsheetId,
+            //     range,
+            //     valueInputOption: 'RAW',
+            //     requestBody: {
+            //         values: [[
+            //             formData.get('firstName'),
+            //             formData.get('lastName'),
+            //             formData.get('email'),
+            //             formData.get('contactNumber'),
+            //             formData.get('dateOfBirth'),
+            //             formData.get('gender'),
+            //             formData.get('address'),
+            //             formData.get('residentialStatus'),
+            //             formData.get('ethnicity'),
+            //             formData.get('latestCompletedQualification'),
+            //             formData.get('instituteName'),
+            //             formData.get('startingYear'),
+            //             formData.get('completionYear'),
+            //             formData.get('experience'),
+            //             formData.get('companyName1'),
+            //             formData.get('jobTitle1'),
+            //             formData.get('companyContact1'),
+            //             formData.get('startingDate1'),
+            //             formData.get('endingDate1'),
+            //             formData.get('reasonForLeaving1'),
+            //             formData.get('companyName2'),   
+            //             formData.get('jobTitle2'),
+            //             formData.get('companyContact2'),
+            //             formData.get('startingDate2'),
+            //             formData.get('endingDate2'),
+            //             formData.get('reasonForLeaving2'),
+            //             formData.get('industry'),
+            //             formData.get('jobType'),
+            //             formData.get('preferredShift'),
+            //             formData.get('englishProficiency'),
+            //             formData.get('12-hours'),
+            //             fileUrl
+            //         ]]
+            //     }
+            // });
             
             
         return NextResponse.json({success: true, status: 200});;
