@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "./ui/header";
-
+import Footer from "./ui/footer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,6 +29,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

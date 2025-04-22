@@ -9,10 +9,10 @@ const SectionOne = () => {
     return(
         <div className="flex justify-between items-center p-4 bg-[#292929] ">
             <div className="flex items-center justify-between gap-4 container">
-                <h3 className="text-white font-poppins font-normal tracking-normal text-sm">Welcome to <span className="font-poppins font-[700] text-red-ghr">Global HR</span></h3>
-                <div className="flex items-center justify-end gap-3">
-                    <Link href={'tel:+16479015000'} className="text-white inline-flex items-center gap-2 font-poppins font-[500] tracking-normal text-sm hover:text-pink-ghr"><Image src="/icons/call-2.png" alt="Phone" className="w-5 h-5" width={1000} height={1000} />647-901-5000</Link>
-                    <Link href={'mailto:info@hrglobal.ca'} className="text-white inline-flex items-center gap-2 font-poppins font-[500] tracking-normal text-sm hover:text-pink-ghr"><Image src="/icons/mail.png" alt="Email" className="w-5 h-5" width={1000} height={1000} />info@hrglobal.ca</Link>
+                <h3 className="text-white font-poppins font-[300] tracking-wide text-sm">Welcome to <span className="font-poppins font-[700] text-red-ghr">Global HR</span></h3>
+                <div className="flex items-center justify-end gap-6">
+                    <Link href={'tel:+16479015000'} className="text-white inline-flex items-center gap-1 font-poppins font-[300] tracking-wide text-sm hover:text-pink-ghr"><Image src="/icons/call-2.png" alt="Phone" className="w-[15px] h-auto" width={1000} height={1000} />647-901-5000</Link>
+                    <Link href={'mailto:info@hrglobal.ca'} className="text-white inline-flex items-center gap-1 font-poppins font-[300] tracking-wide text-sm hover:text-pink-ghr"><Image src="/icons/mail.png" alt="Email" className="w-[15px] h-auto" width={1000} height={1000} />info@hrglobal.ca</Link>
                 </div>
             </div>
         </div>
