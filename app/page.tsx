@@ -1,5 +1,5 @@
 'use client'
-import Image from "next/image";
+
 import { authenticaion } from "./lib/authenication";
 export default function Home() {
 

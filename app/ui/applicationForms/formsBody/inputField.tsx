@@ -1,6 +1,5 @@
 'use client'
 import { Asterisk } from "lucide-react";
-import { useState } from "react";
 
 export function Label({label ,name, className, required}:{label: string, name: string, className?: string, required?: boolean}){
     return(

@@ -3,7 +3,6 @@ import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 import SignOutBtn from "./signOutBtn";
-import { Phone } from "lucide-react";
 
 const SectionOne = () => {
     return(

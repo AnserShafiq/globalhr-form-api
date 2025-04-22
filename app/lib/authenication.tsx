@@ -18,7 +18,9 @@ export async function authenticaion(formData: FormData) {
             return {error: 'Invalid credentials'}
         }
         return {success: 'Logged in successfully'}
-    } catch (error: any) {
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any 
+    catch (error: any) {
         console.error('Authentication error On Authentication.tsx');
         return { error: error?.message || 'Authentication failed' };
     }

@@ -17,6 +17,7 @@ export async function connectToDatabase() {
     }
     return pool;
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function executeQuery(query: string, params: any[] = []) {
     const db = await connectToDatabase();
     console.log('Executing params:', params);

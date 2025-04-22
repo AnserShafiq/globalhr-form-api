@@ -1,6 +1,6 @@
 import { executeQuery } from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function GET(req:NextRequest, context: any){
     try {
         console.log('Executing get-admin API');
