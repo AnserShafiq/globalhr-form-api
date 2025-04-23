@@ -4,12 +4,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --red-ghr: #8B001F;
+  --pink-ghr: #AF0254;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-red-ghr: #8B001F;
-  --color-pink-ghr:#AF0254; 
+  --color-red-ghr: var(--red-ghr);
+  --color-pink-ghr: var(--pink-ghr); 
   --color-foreground: var(--foreground);
   --font-poppins: 'Poppins', sans-serif;
   --animate-shine: shine 0.75s ease-in-out forwards;

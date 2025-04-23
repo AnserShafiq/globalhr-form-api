@@ -4,6 +4,7 @@ import LeftHeading from "@/app/ui/applicationForms/left-heading";
 
 
 export default function ApplicationForm() {
+
   return (
     <div className="grid grid-cols-[50%_50%] py-24! gap-5 container ">
       <div className="">
@@ -16,3 +17,4 @@ export default function ApplicationForm() {
     </div>
   )
 }
+
