@@ -28,7 +28,9 @@ export default function JobSeekersForms(){
             });
             if(response.ok){
                 alert('Application submitted successfully');
+                setResume(null)
                 setSubmission(true);
+
             }else{
                 alert('Application submission failed');
             }
@@ -48,7 +50,7 @@ export default function JobSeekersForms(){
     }
 
     
-    return submission ? <div className="bg-gray-300 rounded-md p-6 flex flex-col items-center justify-center">
+    return submission ? <div className="bg-gray-300 rounded-md p-6 flex flex-col items-center justify-center min-h-[80vh]">
         <h2 className="text-4xl font-normal font-poppins text-center">Application submitted successfully</h2>
     </div> : (
         <div className="bg-gray-300 rounded-md p-6 flex flex-col">
@@ -146,46 +148,12 @@ export default function JobSeekersForms(){
                         </>
                     )}
                  </div>
-                {/* Target Field */}
-                <InnerFormHeading className="mt-6">Target Field</InnerFormHeading>
                 <div className="grid grid-cols-2 gap-x-5 gap-y-3 mt-3">
-                    <SelectOptions name="industry" label="Industry" required>
-                        <option value="">Select option</option>
-                        <option value="IT">IT</option>
-                        <option value="Healthcare">Healthcare</option>
-                        <option value="Accounting & Finance">Accounting & Finance</option>
-                        <option value="Manufacturing">Manufacturing</option>
-                        <option value="Retail">Retail</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Construction">Construction</option>
-                        <option value="Marketing">Marketing</option>
-                    </SelectOptions>
-                    <div className="flex flex-col gap-y-2">
-                        <Label label="Job Type" name="jobType" required/>
-                        <div className="flex gap-x-3">
-                            <label className="flex gap-x-2 items-center cursor-pointer"><input type="radio" name="jobType" id="jobType" value="fullTime" required/> Full Time</label>
-                            <label className="flex gap-x-2 items-center cursor-pointer"><input type="radio" name="jobType" id="jobType" value="partTime" required/> Part Time</label>
-                        </div>
-                    </div>
-                    <SelectOptions name="preferredShift" label="Preferred Shift" required>
-                        <option value="">Select option</option>
-                        <option value="Morning">Morning</option>
-                        <option value="Evening">Evening</option>
-                        <option value="Night">Night</option>
-                        <option value="Flexible">Flexible</option>
-                    </SelectOptions>
-                    <SelectOptions name="englishProficiency" label="Proficiency in English" required>
-                        <option value="">Select option</option>
-                        <option value="Speak">Speak</option>
-                        <option value="Read">Read</option>
-                        <option value="Write">Write</option>
-                        <option value="All">All</option>
-                    </SelectOptions>
                     <div className="flex flex-col gap-y-2 col-span-2">
-                        <Label label="Are you available for 12-hour shifts?" name="12-hours" required/>
+                        <Label label="Are you available for Full-time / Part-time?" name="fullTime_partTime" required/>
                         <div className="flex gap-x-3">
-                            <label className="flex gap-x-2 items-center cursor-pointer"><input type="radio" name="12-hours" id="12-hours" value="yes" required/> Yes</label>
-                            <label className="flex gap-x-2 items-center cursor-pointer"><input type="radio" name="12-hours" id="12-hours" value="no" required/> No</label>
+                            <label className="flex gap-x-2 items-center cursor-pointer"><input type="radio" name="fullTime_partTime" id="fullTime_partTime" value="Full-time" required/> Full time</label>
+                            <label className="flex gap-x-2 items-center cursor-pointer"><input type="radio" name="fullTime_partTime" id="fullTime_partTime" value="Part-time" required/> Part time</label>
                         </div>
                     </div>
                     <div className="col-span-2">

@@ -16,17 +16,18 @@ export function ResumeInput({label, handleFileChange, fileName}:{label: string, 
         <div className="flex flex-col gap-2">
             <label htmlFor={'resume'} className="text-lg font-medium font-poppins capitalize relative w-fit">
                 {label}
-                <Asterisk  className="w-3 h-auto text-red-ghr absolute top-0 -right-4"/>
+                {/* <Asterisk  className="w-3 h-auto text-red-ghr absolute top-0 -right-4"/> */}
             </label>
             <div className="flex gap-2 items-center">
                 {/* Hidden file input */}
-                <input type="file" id="resumeUpload" name="resume" required accept=".pdf,.doc,.docx" className="hidden" onChange={handleFileChange}/>
+                <input type="file" id="resumeUpload" name="resume" accept=".pdf,.doc,.docx" className="hidden" onChange={handleFileChange}/>
                 <label htmlFor="resumeUpload" className="cursor-pointer bg-gray-100 text-gray-900 px-4 py-2 rounded-md w-fit text-sm">
                     Choose File
                 </label>
 
                 {/* File name display */}
                 <span className="text-gray-700 text-sm">{fileName || "No file chosen"}</span>
+                
             </div>
         </div>
 

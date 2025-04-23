@@ -8,116 +8,122 @@ const auth = new google.auth.GoogleAuth({
         client_email: process.env.GOOGLE_CLIENT_EMAIL,
         private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
     },
-    scopes: ['https://www.googleapis.com/auth/drive.file'],
+    scopes: ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/spreadsheets'],
 });
 
 const drive = google.drive({version: 'v3', auth});
-// const sheets = google.sheets({version: 'v4', auth});
+const sheets = google.sheets({version: 'v4', auth});
 
 export async function POST(req: NextRequest){
+    let fileUrl = null;
+    let downloadLink = '-'
     try{
         const formData = await req.formData();
         const file = formData.get('resume') as File
+        console.log('Resume File: ', file);
         if(!file){
             return NextResponse.json({success: false, status: 400, error: 'No file uploaded'}, {status: 400});
         }
-        const buffer = Buffer.from(await file.arrayBuffer());
-        const stream = Readable.from(buffer);
-        const fileMetaData = await drive.files.create({
-            requestBody: {
-                name: file.name,
-                parents: process.env.GOOGLE_DRIVE_FOLDER_ID ? [process.env.GOOGLE_DRIVE_FOLDER_ID] : [],
-            },media:{
-                mimeType: file.type,
-                body: stream,
-            }
-        })
-        const fileId = fileMetaData.data.id;
-        const fileUrl = `https://drive.goolge.com/uc?id=${fileId}`;
+        if(file.name){
+            const buffer = Buffer.from(await file.arrayBuffer());
+            const stream = Readable.from(buffer);
+            const fileMetaData = await drive.files.create({
+                requestBody: {
+                    name: file.name,
+                    parents: process.env.GOOGLE_DRIVE_FOLDER_ID ? [process.env.GOOGLE_DRIVE_FOLDER_ID] : [],
+                },media:{
+                    mimeType: file.type,
+                    body: stream,
+                }
+            })
+            const fileId = file.name !== '' ? fileMetaData.data.id : '';
+            fileUrl=`https://drive.goolge.com/uc?id=${fileId}`
+            downloadLink = `https://drive.google.com/uc?export=download&id=${fileId}`
+            // const downloadLink = file.name !== '' ? : '-';
+        }
+
         await executeQuery(`INSERT INTO job_seekers(
-            firstName,lastName,email,contactNumber,dateOfBirth,gender,address,residentialStatus,ethnicity,
-            latestQualification,institute,startingYear,completionYear,
-            experience,companyName_1,jobTitle_1,companyContact_1,startingDate_1,endingDate_1,reason_1,companyName_2,jobTitle_2,companyContact_2,startingDate_2,endingDate_2,reason_2,
-            targetIndustry,jobType, preferredShift, english_level, hours_12, resume)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-             `,[
-                formData.get('firstName'),
-                formData.get('lastName'),
-                formData.get('email'),
-                formData.get('contactNumber'),
-                formData.get('dateOfBirth'),
-                formData.get('gender'),
-                formData.get('address'),
-                formData.get('residentialStatus'),
-                formData.get('ethnicity'),
-                formData.get('latestCompletedQualification'),
-                formData.get('instituteName'),
-                formData.get('startingYear'),
-                formData.get('completionYear'),
-                formData.get('experience'),
-                formData.get('companyName1'),
-                formData.get('jobTitle1'),
-                formData.get('companyContact1'),
-                formData.get('startingDate1'),
-                formData.get('endingDate1'),
-                formData.get('reasonForLeaving1'),
-                formData.get('companyName2'),   
-                formData.get('jobTitle2'),
-                formData.get('companyContact2'),
-                formData.get('startingDate2'),
-                formData.get('endingDate2'),
-                formData.get('reasonForLeaving2'),
-                formData.get('industry'),
-                formData.get('jobType'),
-                formData.get('preferredShift'),
-                formData.get('englishProficiency'),
-                formData.get('12-hours'),
-                fileUrl
-             ]);
-            //  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-            //  const range = 'Sheet1!A1';             
-            //  await sheets.spreadsheets.values.append({
-            //     spreadsheetId,
-            //     range,
-            //     valueInputOption: 'RAW',
-            //     requestBody: {
-            //         values: [[
-            //             formData.get('firstName'),
-            //             formData.get('lastName'),
-            //             formData.get('email'),
-            //             formData.get('contactNumber'),
-            //             formData.get('dateOfBirth'),
-            //             formData.get('gender'),
-            //             formData.get('address'),
-            //             formData.get('residentialStatus'),
-            //             formData.get('ethnicity'),
-            //             formData.get('latestCompletedQualification'),
-            //             formData.get('instituteName'),
-            //             formData.get('startingYear'),
-            //             formData.get('completionYear'),
-            //             formData.get('experience'),
-            //             formData.get('companyName1'),
-            //             formData.get('jobTitle1'),
-            //             formData.get('companyContact1'),
-            //             formData.get('startingDate1'),
-            //             formData.get('endingDate1'),
-            //             formData.get('reasonForLeaving1'),
-            //             formData.get('companyName2'),   
-            //             formData.get('jobTitle2'),
-            //             formData.get('companyContact2'),
-            //             formData.get('startingDate2'),
-            //             formData.get('endingDate2'),
-            //             formData.get('reasonForLeaving2'),
-            //             formData.get('industry'),
-            //             formData.get('jobType'),
-            //             formData.get('preferredShift'),
-            //             formData.get('englishProficiency'),
-            //             formData.get('12-hours'),
-            //             fileUrl
-            //         ]]
-            //     }
-            // });
-            
+        firstName,lastName,email,contactNumber,dateOfBirth,gender,address,residentialStatus,ethnicity,
+        latestQualification,institute,startingYear,completionYear,
+        experience,companyName_1,jobTitle_1,companyContact_1,startingDate_1,endingDate_1,reason_1,companyName_2,jobTitle_2,companyContact_2,startingDate_2,endingDate_2,reason_2, fullTime_partTime, resume)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[
+            formData.get('firstName'),
+            formData.get('lastName'),
+            formData.get('email'),
+            formData.get('contactNumber'),
+            formData.get('dateOfBirth'),
+            formData.get('gender'),
+            formData.get('address'),
+            formData.get('residentialStatus'),
+            formData.get('ethnicity'),
+            formData.get('latestCompletedQualification'),
+            formData.get('instituteName'),
+            formData.get('startingYear'),
+            formData.get('completionYear'),
+            formData.get('experience'),
+            formData.get('companyName1'),
+            formData.get('jobTitle1'),
+            formData.get('companyContact1'),
+            formData.get('startingDate1'),
+            formData.get('endingDate1'),
+            formData.get('reasonForLeaving1'),
+            formData.get('companyName2'),   
+            formData.get('jobTitle2'),
+            formData.get('companyContact2'),
+            formData.get('startingDate2'),
+            formData.get('endingDate2'),
+            formData.get('reasonForLeaving2'),
+            formData.get('fullTime_partTime'),
+            fileUrl
+        ]);
+
+        const spreadsheetId = process.env.GOOGLE_SHEET_ID!;
+        const range = 'JobSeekers!A1';
+        console.log("spreadsheetId:", spreadsheetId);
+        console.log("sheet append range:", range);
+        try {
+            await sheets.spreadsheets.values.append({
+                spreadsheetId,
+                range,
+                valueInputOption: 'RAW',
+                requestBody: {
+                    values: [[
+                        formData.get('firstName'),
+                        formData.get('lastName'),
+                        formData.get('email'),
+                        formData.get('contactNumber'),
+                        formData.get('dateOfBirth'),
+                        formData.get('gender'),
+                        formData.get('address'),
+                        formData.get('residentialStatus'),
+                        formData.get('ethnicity'),
+                        formData.get('latestCompletedQualification'),
+                        formData.get('instituteName'),
+                        formData.get('startingYear'),
+                        formData.get('completionYear'),
+                        formData.get('experience'),
+                        formData.get('companyName1') || '-',
+                        formData.get('jobTitle1') || '-',
+                        formData.get('companyContact1') || '-',
+                        formData.get('startingDate1') || '-',
+                        formData.get('endingDate1') || '-',
+                        formData.get('reasonForLeaving1') || '-',
+                        formData.get('companyName2') || '-',   
+                        formData.get('jobTitle2') || '-',
+                        formData.get('companyContact2') || '-',
+                        formData.get('startingDate2') || '-',
+                        formData.get('endingDate2') || '-',
+                        formData.get('reasonForLeaving2') || '-',
+                        formData.get('fullTime_partTime'),
+                        downloadLink
+                    ]]
+                }
+            });
+        } catch (err) {
+            console.error("Spreadsheet access error:", err);
+            return NextResponse.json({success: false, status: 500, error: 'Failed to upload in sheets'}, {status: 500});
+        }
+        
             
         return NextResponse.json({success: true, status: 200});;
     }catch(error){
