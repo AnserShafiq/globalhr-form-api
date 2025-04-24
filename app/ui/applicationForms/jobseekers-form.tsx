@@ -57,7 +57,7 @@ export default function JobSeekersForms(){
             <form className="mt-4" onSubmit={handleSubmit}>
                 {/* Personal information */}
                 <InnerFormHeading>Personal information</InnerFormHeading>
-                <div className= 'flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3'>
+                <div className= ' grid grid-cols-2 gap-x-5 gap-y-3 mt-3'>
                     <InputField label="First Name" name="firstName" type="text" required />
                     <InputField label="Last Name" name="lastName" type="text"  />
                     <InputField label="E Mail" name="email" type="email" required />
@@ -100,7 +100,7 @@ export default function JobSeekersForms(){
                 </div>
                 {/* Education */}
                 <InnerFormHeading className="mt-6">Education</InnerFormHeading>
-                <div className= 'flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3'>
+                <div className= ' grid grid-cols-2 gap-x-5 gap-y-3 mt-3'>
                     <div className="col-span-2">
                         <InputField label="Latest Completed Qualification" name="latestCompletedQualification" type="text" required/>
                     </div>
@@ -112,7 +112,7 @@ export default function JobSeekersForms(){
                  </div>
                  {/* Work Experience */}
                  <InnerFormHeading className="mt-6">Work Experience</InnerFormHeading>
-                 <div className="flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3">
+                 <div className=" grid grid-cols-2 gap-x-5 gap-y-3 mt-3">
                     <div className="col-span-2">
                         <Label label="Are you an experienced jobseeker or a fresher?" name="experience" required/>
                         <div className="flex gap-x-3">
@@ -147,7 +147,7 @@ export default function JobSeekersForms(){
                         </>
                     )}
                  </div>
-                <div className="flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3">
+                <div className=" grid grid-cols-2 gap-x-5 gap-y-3 mt-3">
                     <div className="flex flex-col gap-y-2 col-span-2">
                         <Label label="Are you available for Full-time / Part-time?" name="fullTime_partTime" required/>
                         <div className="flex gap-x-3">
