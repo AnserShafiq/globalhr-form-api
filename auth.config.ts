@@ -3,8 +3,8 @@ import type { NextAuthConfig } from "next-auth";
 export const authConfig: NextAuthConfig = {
     secret: process.env.AUTH_SECRET,
     pages:{
-        signIn: '/portal',
-        signOut: '/portal',
+        signIn: '/login',
+        signOut: '/login',
     },
     session:{
         strategy: "jwt",
@@ -33,16 +33,16 @@ export const authConfig: NextAuthConfig = {
         },
         authorized({ auth,request:{nextUrl}}){
             const isLoggedIn = auth?.user;
+            const isOnLogin = nextUrl.pathname === '/login';
             const isOnPortal = nextUrl.pathname === '/portal';
-            const isOnDashboard = nextUrl.pathname === '/portal/dashboard';
-            if(isOnDashboard){
+            if(isOnPortal){
                 if(isLoggedIn){
                     return true;
                 }
                 return false;
             }
-            if(isLoggedIn && isOnPortal){
-                return Response.redirect(new URL('/portal/dashboard', nextUrl));
+            if(isLoggedIn && isOnLogin){
+                return Response.redirect(new URL('/portal', nextUrl));
             }
             return true;
         }   
