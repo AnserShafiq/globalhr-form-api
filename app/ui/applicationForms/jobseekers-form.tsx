@@ -53,11 +53,11 @@ export default function JobSeekersForms(){
         <h2 className="text-4xl font-normal font-poppins text-center">Application submitted successfully</h2>
     </div> : (
         <div className="bg-gray-300 rounded-md p-6 flex flex-col">
-            <h2 className="text-lg font-normal font-poppins ">Fill the form given below, we will reach back to you shortly.</h2>
+            <h2 className="text-md lg:text-lg font-normal font-poppins ">Fill the form given below, we will reach back to you shortly.</h2>
             <form className="mt-4" onSubmit={handleSubmit}>
                 {/* Personal information */}
                 <InnerFormHeading>Personal information</InnerFormHeading>
-                <div className= 'grid grid-cols-2 gap-x-5 gap-y-3 mt-3'>
+                <div className= 'flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3'>
                     <InputField label="First Name" name="firstName" type="text" required />
                     <InputField label="Last Name" name="lastName" type="text"  />
                     <InputField label="E Mail" name="email" type="email" required />
@@ -100,7 +100,7 @@ export default function JobSeekersForms(){
                 </div>
                 {/* Education */}
                 <InnerFormHeading className="mt-6">Education</InnerFormHeading>
-                <div className= 'grid grid-cols-2 gap-x-5 gap-y-3 mt-3'>
+                <div className= 'flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3'>
                     <div className="col-span-2">
                         <InputField label="Latest Completed Qualification" name="latestCompletedQualification" type="text" required/>
                     </div>
@@ -112,7 +112,7 @@ export default function JobSeekersForms(){
                  </div>
                  {/* Work Experience */}
                  <InnerFormHeading className="mt-6">Work Experience</InnerFormHeading>
-                 <div className="grid grid-cols-2 gap-x-5 gap-y-3 mt-3">
+                 <div className="flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3">
                     <div className="col-span-2">
                         <Label label="Are you an experienced jobseeker or a fresher?" name="experience" required/>
                         <div className="flex gap-x-3">
@@ -147,7 +147,7 @@ export default function JobSeekersForms(){
                         </>
                     )}
                  </div>
-                <div className="grid grid-cols-2 gap-x-5 gap-y-3 mt-3">
+                <div className="flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3">
                     <div className="flex flex-col gap-y-2 col-span-2">
                         <Label label="Are you available for Full-time / Part-time?" name="fullTime_partTime" required/>
                         <div className="flex gap-x-3">

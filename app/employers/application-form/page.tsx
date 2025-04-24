@@ -6,7 +6,7 @@ import EmployersForm from "../../ui/applicationForms/employers-form";
 
 export default function ApplicationForm(){
     return(
-        <div className='grid grid-cols-[50%_50%] py-24! gap-5 container min-h-[90vh]'>
+        <div className='flex flex-col lg:grid lg:grid-cols-[50%_50%] py-8! lg:py-24! gap-5 container min-h-[90vh]'>
             <div className="">
                 <LeftHeading>Employers Request</LeftHeading>
                 <LeftDesc>

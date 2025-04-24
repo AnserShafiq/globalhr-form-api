@@ -3,7 +3,7 @@ import { Asterisk } from "lucide-react";
 
 export function Label({label ,name, className, required}:{label: string, name: string, className?: string, required?: boolean}){
     return(
-        <label htmlFor={name} className={`text-lg font-medium font-poppins capitalize relative w-fit ${className}`}>
+        <label htmlFor={name} className={`text-md lg:text-lg font-medium font-poppins capitalize relative w-fit block ${className}`}>
             {label}
             {required && <Asterisk  className="w-3 h-auto text-red-ghr absolute top-0 -right-4"/>}
         </label>
@@ -14,7 +14,7 @@ export function ResumeInput({label, handleFileChange, fileName}:{label: string, 
     
     return(
         <div className="flex flex-col gap-2">
-            <label htmlFor={'resume'} className="text-lg font-medium font-poppins capitalize relative w-fit">
+            <label htmlFor={'resume'} className="text-md lg:text-lg font-medium font-poppins capitalize relative w-fit">
                 {label}
                 {/* <Asterisk  className="w-3 h-auto text-red-ghr absolute top-0 -right-4"/> */}
             </label>
@@ -53,7 +53,7 @@ export function InputField({label, name, type, placeholder, className, required,
     
     return(
         <div className="flex flex-col">
-            <label htmlFor={name} className="text-lg font-medium font-poppins capitalize relative w-fit">
+            <label htmlFor={name} className="text-md lg:text-lg font-medium font-poppins capitalize relative w-fit">
                 {label}
                 {required && <Asterisk  className="w-3 h-auto text-red-ghr absolute top-0 -right-4"/>}
             </label>

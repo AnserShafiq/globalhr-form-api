@@ -43,11 +43,11 @@ export default function EmployersForm(){
     </div>
     :
     <div className='bg-gray-300 rounded-md p-6 flex flex-col'>
-        <h2 className="text-lg font-normal font-poppins ">Fill the form given below, we will reach back to you shortly.</h2>
+        <h2 className="text-md lg:text-lg font-normal font-poppins ">Fill the form given below, we will reach back to you shortly.</h2>
         <form className="mt-4" onSubmit={handleSubmission}>
             {/* Personal Information */}
             <InnerFormHeading>Personal Information</InnerFormHeading>
-            <div className='grid grid-cols-2 gap-x-5 gap-y-3 mt-3'>
+            <div className='flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3'>
                 <InputField label='First Name' name="firstName" type='text' required />
                 <InputField label='Last Name' name="lastName" type='text' required />
                 <div className='col-span-2'>
@@ -58,7 +58,7 @@ export default function EmployersForm(){
             </div>
             {/* Company Information */}
             <InnerFormHeading className='mt-6'>Company Details</InnerFormHeading>
-            <div className='grid grid-cols-2 gap-x-5 gap-y-3 mt-3'>
+            <div className='flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3'>
                 <InputField label='Company Name' name="companyName" type='text' required />
                 <InputField label="Contact Number" name="companyContact" type="tel" required targetValue={companyContact} targetFunction={setCompanyContact} />
                 <div className="col-span-2">
@@ -73,7 +73,7 @@ export default function EmployersForm(){
             </div>
             {/* Other Details */}
             <InnerFormHeading className='mt-6'>Requirement Details</InnerFormHeading>
-            <div className='grid grid-cols-2 gap-x-5 gap-y-3 mt-3'>
+            <div className='flex flex-col lg:grid lg:grid-cols-2 gap-x-5 gap-y-3 mt-3'>
                 <div className="flex flex-col gap-y-2 col-span-2">
                     <Label label="What you prefer to contact you?" name="contactSource" required/>
                     <div className="flex gap-x-3">
