@@ -27,7 +27,6 @@ export default function JobSeekersForms(){
                 body: formData,
             });
             if(response.ok){
-                alert('Application submitted successfully');
                 setResume(null)
                 setSubmission(true);
 

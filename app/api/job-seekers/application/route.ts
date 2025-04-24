@@ -115,19 +115,18 @@ export async function POST(req: NextRequest){
                         formData.get('endingDate2') || '-',
                         formData.get('reasonForLeaving2') || '-',
                         formData.get('fullTime_partTime'),
-                        downloadLink
+                        downloadLink,
+                        `Date: ${new Date().toISOString().split('T')[0]}, Time:${new Date().toTimeString().split(' ')[0]}`
                     ]]
                 }
             });
         } catch (err) {
             console.error("Spreadsheet access error:", err);
             return NextResponse.json({success: false, status: 500, error: 'Failed to upload in sheets'}, {status: 500});
-        }
-        
-            
+        }   
         return NextResponse.json({success: true, status: 200});;
     }catch(error){
-        console.error('Error uploading resume:', error);
-        return NextResponse.json({success: false, status: 500, error: 'Failed to upload resume'}, {status: 500});
+        console.error('Error uploading application:', error);
+        return NextResponse.json({success: false, status: 500, error: 'Failed to upload application'}, {status: 500});
     }
 }
