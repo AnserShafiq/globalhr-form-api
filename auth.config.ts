@@ -4,7 +4,6 @@ export const authConfig: NextAuthConfig = {
     secret: process.env.AUTH_SECRET,
     pages:{
         signIn: '/login',
-        signOut: '/login',
     },
     session:{
         strategy: "jwt",
@@ -24,27 +23,36 @@ export const authConfig: NextAuthConfig = {
             return session;
         },
         jwt: async({token,user}) => {
-            if( user){
+            if(user){
                 token.id=user.id;
                 token.name=user.name;
                 token.email=user.email;
             }
             return token;
         },
-        authorized({ auth,request:{nextUrl}}){
-            const isLoggedIn = auth?.user;
+        authorized({ auth, request: { nextUrl } }) {
+            const isLoggedIn = !!auth?.user;
             const isOnLogin = nextUrl.pathname === '/login';
-            const isOnPortal = nextUrl.pathname === '/portal';
-            if(isOnPortal){
-                if(isLoggedIn){
-                    return true;
-                }
-                return false;
+            const isOnPortal = nextUrl.pathname.startsWith('/portal');
+            
+            // If on login page and logged in, redirect to portal
+            if (isOnLogin && isLoggedIn) {
+                return Response.redirect(new URL(`/portal`, nextUrl));
             }
-            if(isLoggedIn && isOnLogin){
-                return Response.redirect(new URL('/portal', nextUrl));
+            
+            // Allow access to login page
+            if (isOnLogin) {
+                return true;
             }
-            return true;
+            
+            // Protect portal routes - require authentication
+            if (isOnPortal) {
+                return isLoggedIn;
+            }
+            
+            // For other pages, you might want to set default access rules
+            return true; // Allow access to other pages by default
         }   
-    },providers: [],
+    },
+    providers: [],
 }

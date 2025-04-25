@@ -2,26 +2,25 @@
 
 import { signIn } from "@/auth"
 
-
 export async function authenticaion(formData: FormData) {
     try {
-        const data: Record<string, string> = {
+        const data = {
             email: formData.get('email') as string,
             password: formData.get('password') as string,
         }
+        
         const result = await signIn('credentials', {
-            redirect:false,
             ...data,
-        })
-        console.log('Result => ',result?.error);
-        if(result?.error){
-            return {error: 'Invalid credentials'}
+            redirect: false
+        });
+        
+        if (result?.error) {
+            return { error: result.error };
         }
-        return {success: 'Logged in successfully'}
-    }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any 
-    catch (error: any) {
-        console.error('Authentication error On Authentication.tsx');
-        return { error: error?.message || 'Authentication failed' };
+        
+        return { success: true };
+    } catch (error) {
+        console.error('Authentication error:', error);
+        return { error: "Authentication failed" };
     }
 }
