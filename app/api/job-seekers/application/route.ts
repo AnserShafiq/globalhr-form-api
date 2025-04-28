@@ -43,10 +43,10 @@ export async function POST(req: NextRequest){
         }
 
         await executeQuery(`INSERT INTO job_seekers(
-        firstName,lastName,email,contactNumber,dateOfBirth,gender,address,residentialStatus,ethnicity,
+        firstName,lastName,email,contactNumber,dateOfBirth,gender,address,city,state,residentialStatus,ethnicity,
         latestQualification,institute,startingYear,completionYear,
         experience,companyName_1,jobTitle_1,companyContact_1,startingDate_1,endingDate_1,reason_1,companyName_2,jobTitle_2,companyContact_2,startingDate_2,endingDate_2,reason_2, fullTime_partTime, resume)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[
             formData.get('firstName'),
             formData.get('lastName'),
             formData.get('email'),
@@ -54,6 +54,8 @@ export async function POST(req: NextRequest){
             formData.get('dateOfBirth'),
             formData.get('gender'),
             formData.get('address'),
+            formData.get('city'),
+            formData.get('state'),
             formData.get('residentialStatus'),
             formData.get('ethnicity'),
             formData.get('latestCompletedQualification'),
@@ -95,6 +97,8 @@ export async function POST(req: NextRequest){
                         formData.get('dateOfBirth'),
                         formData.get('gender'),
                         formData.get('address'),
+                        formData.get('city'),
+                        formData.get('state'),
                         formData.get('residentialStatus'),
                         formData.get('ethnicity'),
                         formData.get('latestCompletedQualification'),

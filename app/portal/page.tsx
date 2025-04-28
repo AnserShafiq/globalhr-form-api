@@ -1,11 +1,27 @@
-import SignOutBtn from "../ui/signOutBtn";
+// import { auth } from "@/auth";
+
+import Em_Section from "../ui/portal/employers-section";
+import JS_Section from "../ui/portal/job-seekers-section";
 
 
-export default function Page(){
+export default async function Page(){
+    // const session = await auth()
+    // const user = session?.user
+
+    // const resp = await fetch(`${process.env.PUBLIC_URL}/api/admin/details/${user?.email}`);
+    // const data = await resp.json();
+
     return(
-        <div className="min-h-[200vh]">
-            Portal
-            <SignOutBtn />
+        <div className="max-h-[850px] overflow-auto h-full flex flex-col justify-between">
+            
+            <div className="w-full h-[400px] max-h-[400px]">
+                <JS_Section />
+            </div>
+
+            <div className="w-full h-[400px] max-h-[400px]">
+                <Em_Section />
+            </div>
+            
         </div>
     )
 }

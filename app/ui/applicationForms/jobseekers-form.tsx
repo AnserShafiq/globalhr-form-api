@@ -73,6 +73,8 @@ export default function JobSeekersForms(){
                     <div className="col-span-2">
                         <InputField label="Address" name="address" type="text" required/>
                     </div>
+                    <InputField label="City" name="city" type="text" required/>
+                    <InputField label="State" name="state" type="text" required/>
                     <div className="col-span-2">
                         <SelectOptions name="residentialStatus" label="Residential Status" required>
                             <option value="">Select option</option>

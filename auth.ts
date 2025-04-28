@@ -5,7 +5,7 @@ import { z } from "zod";
 
 const getEmail = async(email: string) => {
     try {
-        const response = await fetch(`${process.env.PUBLIC_URL}/api/get-admin/${email}`)
+        const response = await fetch(`${process.env.PUBLIC_URL}/api/admin/login/${email}`)
         if(!response.ok){
             throw new Error('Failed to fetch admin');
         }
