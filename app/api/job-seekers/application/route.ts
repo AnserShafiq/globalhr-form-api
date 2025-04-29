@@ -15,8 +15,8 @@ const drive = google.drive({version: 'v3', auth});
 const sheets = google.sheets({version: 'v4', auth});
 
 export async function POST(req: NextRequest){
-    let fileUrl = null;
-    let downloadLink = '-'
+    // let fileUrl = null;
+    let downloadLink = null
     try{
         const formData = await req.formData();
         const file = formData.get('resume') as File
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest){
                 }
             })
             const fileId = file.name !== '' ? fileMetaData.data.id : '';
-            fileUrl=`https://drive.goolge.com/uc?id=${fileId}`
+            // fileUrl=`https://drive.goolge.com/uc?id=${fileId}`
             downloadLink = `https://drive.google.com/uc?export=download&id=${fileId}`
             // const downloadLink = file.name !== '' ? : '-';
         }
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest){
             formData.get('endingDate2'),
             formData.get('reasonForLeaving2'),
             formData.get('fullTime_partTime'),
-            fileUrl
+            downloadLink 
         ]);
 
         const spreadsheetId = process.env.GOOGLE_SHEET_ID!;
@@ -119,7 +119,7 @@ export async function POST(req: NextRequest){
                         formData.get('endingDate2') || '-',
                         formData.get('reasonForLeaving2') || '-',
                         formData.get('fullTime_partTime'),
-                        downloadLink,
+                        downloadLink || '-' ,
                         `Date: ${new Date().toISOString().split('T')[0]}, Time:${new Date().toTimeString().split(' ')[0]}`
                     ]]
                 }

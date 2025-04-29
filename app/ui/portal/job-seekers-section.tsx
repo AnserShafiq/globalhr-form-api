@@ -60,14 +60,14 @@ export default async function JS_Section(){
                                     {js.residentialStatus}
                                 </td>
                                 <td className='pl-2 py-1 flex justify-center'>
-                                    <Link className="mt-1 text-sm font-semibold font-poppins w-fit mx-auto" href={'/'}>View</Link>
+                                    <Link className="mt-1 text-sm font-semibold font-poppins w-fit mx-auto" href={`/portal/job-seekers/${js.id}`}>View</Link>
                                 </td>
                             </tr>
                         )
                     }
                 </tbody>
             </table>
-            <button className="mt-4 text-sm text-red-ghr border-b border-black font-poppins w-fit mx-auto">Veiw All</button>
+            <Link href='/portal/job-seekers' className="mt-4 text-sm text-red-ghr border-b border-black font-poppins w-fit mx-auto">Veiw All</Link>
         </div>
     )
 }

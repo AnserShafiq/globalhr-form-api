@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, RotateCw, Trash2Icon, X } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-export default function JobSeekersList() {
+export default function EmployersList() {
     const [data, setData] = useState<JS_List[]>([]);
     const [selected, setSelected] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
