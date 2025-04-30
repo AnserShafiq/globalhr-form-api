@@ -1,10 +1,11 @@
+import EmployersList from "@/app/ui/employers/emp-list";
 
 
 
 export default function Page(){
     return(
-        <div>
-            Employers
-        </div>
+        <>
+            <EmployersList />
+        </>
     )
 }

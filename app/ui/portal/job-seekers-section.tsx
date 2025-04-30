@@ -53,7 +53,7 @@ export default async function JS_Section(){
                                 <td className='pl-2 py-1'>
                                     {js.city}
                                 </td>
-                                <td className='pl-2 py-1'>
+                                <td className='px-2 py-1 text-nowrap overflow-hidden'>
                                     {js.jobTitle_1 || '-'}
                                 </td>
                                 <td className='pl-2 py-1'>

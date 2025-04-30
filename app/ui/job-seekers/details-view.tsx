@@ -1,5 +1,6 @@
 'use client'
 import { JS_Details } from "@/app/lib/element";
+import { Trash2Icon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -29,6 +30,19 @@ export default function JS_View({id}:{id:string}){
                 <h4>{`Loading Job Seeker's Data`}</h4>
             </div>
         )
+    }
+    const deleteIt = async() => {
+        try{
+            const response = await fetch('/api/job-seekers/delete',{
+                method:'DELETE',
+                body: JSON.stringify([id])
+            })
+            if(response.ok){
+                window.location.href='/portal/job-seekers';
+            }
+        }catch(error){
+            console.error('Unable to delete JS data.',error)
+        }
     }
 
     return(
@@ -81,6 +95,9 @@ export default function JS_View({id}:{id:string}){
             {
                 jobseeker?.resume ? <h3 className="grid grid-cols-[20%_80%] text-md py-1"><span className="font-semibold tracking-wide">{`Resume:`}</span> <Link download={true} href={jobseeker?.resume} className="text-blue-800 underline">View</Link></h3> : null
             }
+            <div className='mt-5 '>
+                <h3 className=" inline-flex items-center gap-1 text-white px-3 py-2 bg-red-ghr rounded-xl hover:bg-pink-ghr transition-all ease-in-out duration-300 hover:scale-[1.05] cursor-pointer" onClick={() => deleteIt()}>Delete it<Trash2Icon className="w-auto h-4" /></h3>
+            </div>
         </div>
     )
 }

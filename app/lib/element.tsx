@@ -4,6 +4,7 @@ export interface User{
     name: string,
     email:string,
     role: string,
+    password: string | null,
     contactNumber: string
 }
 
@@ -52,9 +53,32 @@ export interface JS_Details{
     submission_date: string,
 }
 
-// export interface Emp_List{
-//     id:string,
-//     firstName:string,
-//     lastName: string,
-
-// }
+export interface Emp_List{
+    id:string,
+    firstName:string,
+    lastName: string,
+    contactNumber:string,
+    companyName:string,
+    city:string,
+    candidatesNeeded:string,
+}
+export interface Emp_Details{
+    id:string,
+    firstName:string,
+    lastName: string,
+    email:string,
+    contactNumber:string,
+    jobPosition: string,
+    companyName:string,
+    companyContact:string,
+    companyEmail: string,
+    address: string,
+    city:string,
+    state: string,
+    postalCode: string,
+    contactSource: string,
+    industry: string,
+    candidatesNeeded:string,
+    message: string,
+    submissionDate: string
+}

@@ -1,11 +1,12 @@
 'use client'
-import { JS_List } from "@/app/lib/element";
+
 import { ArrowLeft, ArrowRight, RotateCw, Trash2Icon, X } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { Emp_List } from "../../lib/element";
 
 export default function EmployersList() {
-    const [data, setData] = useState<JS_List[]>([]);
+    const [data, setData] = useState<Emp_List[]>([]);
     const [selected, setSelected] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -16,14 +17,14 @@ export default function EmployersList() {
 
     const fetchData = async () => {
         try {
-          const response = await fetch(`/api/job-seekers/list/all`);
+          const response = await fetch(`/api/employers/list/all`);
           if (!response.ok) {
             throw new Error("Failed to fetch data");
           }
           const result = await response.json();
           setData(result);
         } catch (err) {
-          setError("Failed to load job seekers");
+          setError("Failed to load employers");
           console.error(err);
         } finally {
           setLoading(false);
@@ -59,7 +60,7 @@ export default function EmployersList() {
   if (loading) {
     return (
       <div className="w-full h-64 flex items-center justify-center">
-        <p className="text-lg">Loading job seekers...</p>
+        <p className="text-lg">Loading employers...</p>
       </div>
     );
   }
@@ -73,7 +74,7 @@ export default function EmployersList() {
   }
 
   const deleteRecord = async(id:string | string[]) => {
-    const resp = await fetch(`/api/job-seekers/delete`,{
+    const resp = await fetch(`/api/employers/delete`,{
         method: 'DELETE',
         body: JSON.stringify([id])
     })
@@ -93,7 +94,7 @@ export default function EmployersList() {
   return (
     <div className="w-full h-full overflow-auto flex flex-col relative font-poppins">
       <h1 className="text-lg font-semibold font-poppins w-fit mx-auto my-2 underline">
-        Job Seekers
+        Employers
       </h1>
         <div className='absolute top-3 right-5 text-sm font-[500] flex gap-2'>
         <h3 className=" inline-flex items-center gap-1 text-gray-700 cursor-pointer" onClick={() => fetchData()}>Reload<RotateCw className="w-auto h-4" /></h3>
@@ -106,42 +107,42 @@ export default function EmployersList() {
         </div>
       {data.length === 0 ? (
         <div className="w-full h-full flex items-center justify-center">
-          <p className="text-lg">No job seeker</p>
+          <p className="text-lg">No employer</p>
         </div>
       ) : (
         <>
           <table className="rounded-xl border border-gray-200 w-full overflow-auto flex flex-col">
             <thead className="w-full">
-              <tr className="grid grid-cols-[20%_15%_15%_20%_20%_10%] font-poppins text-md font-medium border-y border-gray-200 px-3">
-                <td className="border-r border-gray-200 py-1">Name</td>
+              <tr className="grid grid-cols-[20%_15%_20%_15%_20%_10%] font-poppins text-md font-medium border-y border-gray-200 px-3">
+                <td className="border-r border-gray-200 py-1">Agent name</td>
                 <td className="border-r border-gray-200 pl-2 py-1">Contact</td>
+                <td className="border-r border-gray-200 pl-2 py-1">Company name</td>
                 <td className="border-r border-gray-200 pl-2 py-1">City</td>
-                <td className="border-r border-gray-200 pl-2 py-1">Exp. Position</td>
-                <td className="border-r border-gray-200 pl-2 py-1">Res. Status</td>
+                <td className="border-r border-gray-200 pl-2 py-1">Cand. Required</td>
                 <td className="pl-2 py-1 flex justify-center">-</td>
               </tr>
             </thead>
             <tbody className="w-full">
-              {activeCols.map((js) => (
+              {activeCols.map((emp) => (
                 <tr
-                  key={js?.id}
-                  onClick={() => selectionCall(js.id)}
-                  className={`grid grid-cols-[20%_15%_15%_20%_20%_10%] font-poppins text-md font-light p-3 border-b border-gray-200 ${selected.includes(js.id)? 'bg-gray-300':''}`}
+                  key={emp?.id}
+                  onClick={() => selectionCall(emp.id)}
+                  className={`grid grid-cols-[20%_15%_20%_15%_20%_10%] font-poppins text-md font-light p-3 border-b border-gray-200 ${selected.includes(emp.id)? 'bg-gray-300':''}`}
                 >
-                  <td className="py-1">{`${js?.firstName} ${js.lastName}`}</td>
-                  <td className="pl-2 py-1">{js.contactNumber}</td>
-                  <td className="pl-2 py-1">{js.city}</td>
-                  <td className="px-2 py-1 text-nowrap overflow-hidden">{js.jobTitle_1 || "-"}</td>
-                  <td className="pl-2 py-1">{js.residentialStatus}</td>
+                  <td className="py-1">{`${emp?.firstName} ${emp.lastName}`}</td>
+                  <td className="pl-2 py-1">{emp.contactNumber}</td>
+                  <td className="px-2 py-1 text-nowrap overflow-hidden">{emp.companyName}</td>
+                  <td className="pl-2 py-1">{emp.city}</td>
+                  <td className="pl-2 py-1">{emp.candidatesNeeded}</td>
                   <td className="pl-2 py-1 flex justify-center">
                     <Link
                       className="mt-1 text-xs font-semibold font-poppins w-fit mx-auto cursor-pointer text-black hover:underline"
-                      href = {`/portal/job-seekers/${js.id}`}
+                      href = {`/portal/employers/${emp.id}`}
                     >
                       View
                     </Link>
                     <a
-                        onClick={() => deleteRecord(js.id)}
+                        onClick={() => deleteRecord(emp.id)}
                       className="mt-1 text-xs font-semibold font-poppins w-fit mx-auto cursor-pointer text-red-ghr hover:underline"
                     >
                       Delete
@@ -152,7 +153,7 @@ export default function EmployersList() {
             </tbody>
           </table>
           
-          <div className="w-full flex gap-4 items-center justify-center mt-4">
+          <div className={`w-full ${ data.length > 12 ? 'flex': 'hidden'} gap-4 items-center justify-center mt-4`}>
             <button 
               onClick={decreasePage} 
               disabled={currentPage === 1}

@@ -13,14 +13,14 @@ export default function SideBar({User}:{User: User}){
         User.role === 'administrator' ? [
             {link: '/portal', name: 'Home', active: true},
             {link: '/portal/job-seekers', name: 'Job seekers', active: false},
-            {link: '/portal/employers/applicants', name: 'Employers', active: false},
+            {link: '/portal/employers', name: 'Employers', active: false},
             {link: '/portal/contact-messages', name: 'Contact messages', active: false},
             {link: '/portal/employers/applicants', name: 'All agents', active: false},
             {link: '/portal/employers/applicants', name: 'Add new agent', active: false},
         ]:[
             {link: '/portal', name: 'Home', active: true},
             {link: '/portal/job-seekers', name: 'Job seekers', active: false},
-            {link: '/portal/employers/applicants', name: 'Employers', active: false},
+            {link: '/portal/employers', name: 'Employers', active: false},
             {link: '/portal/contact-messages', name: 'Contact messages', active: false},
         ]
 
@@ -48,7 +48,7 @@ export default function SideBar({User}:{User: User}){
                 <h3 className="font-poppins text-sm font-[500] tracking-wide pb-1 border-b border-gray-400 text-gray-700">{User.email}</h3>
                 <h3 className="font-poppins text-sm font-[500] tracking-wide pb-1 border-b border-gray-400 text-gray-700">{User.role}</h3>
                 <h3 className="font-poppins text-sm font-[500] tracking-wide pb-1 border-b border-gray-400 text-gray-700">{User.contactNumber}</h3>
-                <Link className='text-sm text-blue-900 font-poppins font-semibold inline-flex items-center justify-between' href={'/'}>Edit profile <ArrowRightIcon className='w-4 h-auto'/></Link>
+                <Link className='text-sm text-blue-900 font-poppins font-semibold inline-flex items-center justify-between' href={`/portal/profile-edit/${User.id}`}>Edit profile <ArrowRightIcon className='w-4 h-auto'/></Link>
                 <SignOutBtn />
             </div>
         </div>
