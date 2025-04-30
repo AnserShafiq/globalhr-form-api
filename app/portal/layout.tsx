@@ -13,6 +13,7 @@ export default async function Layout({children}:{children: React.ReactNode}){
             name: data.name,
             email: data.email,
             role: data.role,
+            password: data.password,
             contactNumber : data.contactNumber
         }
     return(
