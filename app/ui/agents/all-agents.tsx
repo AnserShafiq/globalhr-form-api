@@ -1,13 +1,13 @@
 'use client'
 
-import { ArrowLeft, ArrowRight, RotateCw, Trash2Icon, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, EyeIcon, EyeOff, RotateCw, Trash2Icon, X } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Emp_List } from "../../lib/element";
+import { User } from "../../lib/element";
 import Loading_JS from "../loading-display/list-loading";
 
-export default function EmployersList() {
-    const [data, setData] = useState<Emp_List[]>([]);
+export default function AgentsList() {
+    const [data, setData] = useState<User[]>([]);
     const [selected, setSelected] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -18,14 +18,14 @@ export default function EmployersList() {
 
     const fetchData = async () => {
         try {
-          const response = await fetch(`/api/employers/list/all`);
+          const response = await fetch(`/api/admin/list`);
           if (!response.ok) {
             throw new Error("Failed to fetch data");
           }
           const result = await response.json();
           setData(result);
         } catch (err) {
-          setError("Failed to load employers");
+          setError("Failed to load agentloyers");
           console.error(err);
         } finally {
           setLoading(false);
@@ -73,7 +73,7 @@ export default function EmployersList() {
   }
 
   const deleteRecord = async(id:string | string[]) => {
-    const resp = await fetch(`/api/employers/delete`,{
+    const resp = await fetch(`/api/admin/delete`,{
         method: 'DELETE',
         body: JSON.stringify([id])
     })
@@ -93,7 +93,7 @@ export default function EmployersList() {
   return (
     <div className="w-full h-full overflow-auto flex flex-col relative font-poppins">
       <h1 className="text-lg font-semibold font-poppins w-fit mx-auto my-2 underline">
-        Employers
+        All Agents
       </h1>
         <div className='absolute top-3 right-5 text-sm font-[500] flex gap-2'>
         <h3 className=" inline-flex items-center gap-1 text-gray-700 cursor-pointer" onClick={() => fetchData()}>Reload<RotateCw className="w-auto h-4" /></h3>
@@ -106,47 +106,24 @@ export default function EmployersList() {
         </div>
       {data.length === 0 ? (
         <div className="w-full h-full flex items-center justify-center">
-          <p className="text-lg">No employer</p>
+          <p className="text-lg">No active agent</p>
         </div>
       ) : (
         <>
           <table className="rounded-xl border border-gray-200 w-full overflow-auto flex flex-col">
             <thead className="w-full">
-              <tr className="grid grid-cols-[20%_15%_20%_15%_20%_10%] font-poppins text-md font-medium border-y border-gray-200 px-3">
-                <td className="border-r border-gray-200 py-1">Agent name</td>
-                <td className="border-r border-gray-200 pl-2 py-1">Contact</td>
-                <td className="border-r border-gray-200 pl-2 py-1">Company name</td>
-                <td className="border-r border-gray-200 pl-2 py-1">City</td>
-                <td className="border-r border-gray-200 pl-2 py-1">Cand. Required</td>
+              <tr className="grid grid-cols-[15%_15%_15%_25%_20%_10%] font-poppins text-md font-medium border-y border-gray-200 px-3">
+                <td className="border-r border-gray-200 py-1">Name</td>
+                <td className="border-r border-gray-200 pl-2 py-1">Role</td>
+                <td className="border-r border-gray-200 pl-2 py-1">Contact No.</td>
+                <td className="border-r border-gray-200 pl-2 py-1">Email</td>
+                <td className="border-r border-gray-200 pl-2 py-1">Password</td>
                 <td className="pl-2 py-1 flex justify-center">-</td>
               </tr>
             </thead>
             <tbody className="w-full">
-              {activeCols.map((emp) => (
-                <tr
-                  key={emp?.id}
-                  className={`grid grid-cols-[20%_15%_20%_15%_20%_10%] font-poppins text-md font-light p-3 border-b border-gray-200 ${selected.includes(emp.id)? 'bg-gray-300':''}`}
-                >
-                  <td className="py-1 cursor-pointer hover:underline" onClick={() => selectionCall(emp.id)}>{`${emp?.firstName} ${emp.lastName}`}</td>
-                  <td className="pl-2 py-1">{emp.contactNumber}</td>
-                  <td className="px-2 py-1 text-nowrap overflow-hidden">{emp.companyName}</td>
-                  <td className="pl-2 py-1">{emp.city}</td>
-                  <td className="pl-2 py-1">{emp.candidatesNeeded}</td>
-                  <td className="pl-2 py-1 flex justify-center">
-                    <Link
-                      className="mt-1 text-xs font-semibold font-poppins w-fit mx-auto cursor-pointer text-black hover:underline"
-                      href = {`/portal/employers/${emp.id}`}
-                    >
-                      View
-                    </Link>
-                    <a
-                        onClick={() => deleteRecord(emp.id)}
-                      className="mt-1 text-xs font-semibold font-poppins w-fit mx-auto cursor-pointer text-red-ghr hover:underline"
-                    >
-                      Delete
-                    </a>
-                  </td>
-                </tr>
+              {activeCols.map((agent) => (
+                <TableRow key={agent.id} agent={agent} selected={selected} selectionCall={selectionCall} deleteRecord={deleteRecord}/>
               ))}
             </tbody>
           </table>
@@ -181,4 +158,45 @@ export default function EmployersList() {
       )}
     </div>
   );
+}
+//eslint-disable-next-line
+function TableRow({agent, selected, selectionCall, deleteRecord}:{agent:User,selected: string[], selectionCall: any, deleteRecord: any}){
+    const [hidePassword, setHidePassword] = useState<boolean>(true);
+    return(
+        <tr
+            key={agent?.id}
+            className={`grid grid-cols-[15%_15%_15%_25%_20%_10%] font-poppins text-md font-light p-3 border-b border-gray-200 ${selected.includes(agent.id)? 'bg-gray-300':''}`}
+        >
+            <td className="py-1 cursor-pointer hover:underline" onClick={() => selectionCall(agent.id)}>{`${agent?.name}`}</td>
+            <td className="pl-2 py-1">{agent.role}</td>
+            <td className="pl-2 py-1 ">{agent.contactNumber}</td>
+            <td className="pl-2 pr-4 py-1 text-nowrap overflow-hidden">{agent.email}</td>
+            <td className="px-2 py-1 inline-flex w-full justify-between relative">
+                {
+                    hidePassword ? 
+                    <>
+                        <span>********</span>
+                        <EyeOff onClick={() => setHidePassword(!hidePassword)} className="h-4 w-auto"/>
+                    </>:<>
+                        <span>{agent.password}</span>
+                        <EyeIcon onClick={() => setHidePassword(!hidePassword)} className="h-4 w-auto"/>
+                    </>
+                }
+            </td>
+            <td className="pl-2 py-1 flex justify-center">
+            <Link
+                className="mt-1 text-xs font-semibold font-poppins w-fit mx-auto cursor-pointer text-black hover:underline"
+                href = {`/portal/all-agents/edit/${agent.id}`}
+            >
+                Edit
+            </Link>
+            <a
+                onClick={() => deleteRecord(agent.id)}
+                className="mt-1 text-xs font-semibold font-poppins w-fit mx-auto cursor-pointer text-red-ghr hover:underline"
+            >
+                Delete
+            </a>
+            </td>
+        </tr>
+    )
 }

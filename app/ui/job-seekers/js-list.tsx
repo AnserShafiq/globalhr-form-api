@@ -3,6 +3,7 @@ import { JS_List } from "@/app/lib/element";
 import { ArrowLeft, ArrowRight, RotateCw, Trash2Icon, X } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import Loading_JS from "../loading-display/list-loading";
 
 export default function JobSeekersList() {
     const [data, setData] = useState<JS_List[]>([]);
@@ -58,9 +59,7 @@ export default function JobSeekersList() {
 
   if (loading) {
     return (
-      <div className="w-full h-64 flex items-center justify-center">
-        <p className="text-lg">Loading job seekers...</p>
-      </div>
+      <Loading_JS />
     );
   }
 
@@ -125,10 +124,9 @@ export default function JobSeekersList() {
               {activeCols.map((js) => (
                 <tr
                   key={js?.id}
-                  onClick={() => selectionCall(js.id)}
                   className={`grid grid-cols-[20%_15%_15%_20%_20%_10%] font-poppins text-md font-light p-3 border-b border-gray-200 ${selected.includes(js.id)? 'bg-gray-300':''}`}
                 >
-                  <td className="py-1">{`${js?.firstName} ${js.lastName}`}</td>
+                  <td className="py-1 cursor-pointer hover:underline" onClick={() => selectionCall(js.id)}>{`${js?.firstName} ${js.lastName}`}</td>
                   <td className="pl-2 py-1">{js.contactNumber}</td>
                   <td className="pl-2 py-1">{js.city}</td>
                   <td className="px-2 py-1 text-nowrap overflow-hidden">{js.jobTitle_1 || "-"}</td>

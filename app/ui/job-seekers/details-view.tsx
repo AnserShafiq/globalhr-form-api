@@ -3,6 +3,7 @@ import { JS_Details } from "@/app/lib/element";
 import { Trash2Icon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Loading_Details from "../loading-display/loading-details";
 
 
 export default function JS_View({id}:{id:string}){
@@ -26,9 +27,7 @@ export default function JS_View({id}:{id:string}){
 
     if(loading){
         return(
-            <div>
-                <h4>{`Loading Job Seeker's Data`}</h4>
-            </div>
+            <Loading_Details />
         )
     }
     const deleteIt = async() => {

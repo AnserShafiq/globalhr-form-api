@@ -2,6 +2,7 @@
 import { Emp_Details } from "@/app/lib/element";
 import { Trash2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
+import Loading_Details from "../loading-display/loading-details";
 
 export default function Emp_View({id}:{id:string}){
     const [employer, setEmployer] = useState<Emp_Details>()
@@ -24,9 +25,7 @@ export default function Emp_View({id}:{id:string}){
 
     if(loading){
         return(
-            <div>
-                <h4>{`Loading Employer's Data`}</h4>
-            </div>
+            <Loading_Details />
         )
     }
     const deleteIt = async() => {

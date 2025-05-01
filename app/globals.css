@@ -15,6 +15,7 @@
   --color-foreground: var(--foreground);
   --font-poppins: 'Poppins', sans-serif;
   --animate-shine: shine 0.75s ease-in-out forwards;
+  --animate-loading: loading 2s ease-in-out infinite;
   @keyframes shine {
     0% {
     left: -100%;
@@ -23,6 +24,23 @@
       left: 100%;
     }
   }
+
+  @keyframes loading {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.995);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+
 }
 .container {
   width: 100%;

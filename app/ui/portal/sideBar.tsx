@@ -15,8 +15,8 @@ export default function SideBar({User}:{User: User}){
             {link: '/portal/job-seekers', name: 'Job seekers', active: false},
             {link: '/portal/employers', name: 'Employers', active: false},
             {link: '/portal/contact-messages', name: 'Contact messages', active: false},
-            {link: '/portal/employers/applicants', name: 'All agents', active: false},
-            {link: '/portal/employers/applicants', name: 'Add new agent', active: false},
+            {link: '/portal/all-agents', name: 'All agents', active: false},
+            {link: '/portal/add-new-agent', name: 'Add new agent', active: false},
         ]:[
             {link: '/portal', name: 'Home', active: true},
             {link: '/portal/job-seekers', name: 'Job seekers', active: false},
