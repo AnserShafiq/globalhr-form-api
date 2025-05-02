@@ -52,7 +52,7 @@ const SectionTwo = () => {
 }
 
 const SectionThree = () => {
-
+    
     return(
         <>
         <div className=" hidden lg:flex justify-between items-center py-2 bg-[#292929] ">
@@ -64,11 +64,7 @@ const SectionThree = () => {
             <div className="flex items-center justify-between gap-4 container">
                 <Image src="/images/icon.png" alt="GlobalHR" className="w-full max-w-[242.3px] lg:max-w-[22%] h-header-icon" width={1000} height={1000} />
                 <div className='hidden lg:flex items-center justify-center gap-8'>
-                    <Link className='font-poppins font-semibold tracking-normal h-full text-[16px]' href='https://www.hrglobal.ca/'>Home</Link>
-                    <Link className='font-poppins font-semibold tracking-normal h-full text-[16px]' href='https://www.hrglobal.ca/about-us/'>About Us</Link>
-                    <Link className='font-poppins font-semibold tracking-normal h-full text-[16px]' href='https://www.hrglobal.ca/candidates/'>Candidates</Link>
-                    <Link className='font-poppins font-semibold tracking-normal h-full text-[16px]' href='https://www.hrglobal.ca/employers/'>Employers</Link>
-                    <Link className='font-poppins font-semibold tracking-normal h-full text-[16px]' href='https://www.hrglobal.ca/contact/'>Contact</Link>
+                    <h3 className='text-sm font-poppins tracking-wide font-semibold border-b-2 border-black text-red-ghr'>Hello</h3>
                 </div>
             </div>
         </div>
@@ -79,10 +75,8 @@ const SectionThree = () => {
 export default function Header() {
     const pathname = usePathname();
     const isPortalActive = pathname?.includes('/portal')
-    return !isPortalActive ?
-        <>
-            <SectionOne />
-            <SectionTwo />
-        </> : <SectionThree />
+    const forContact = pathname.includes('/contact-us')
+    return  !forContact ? 
+    (!isPortalActive ? <><SectionOne /><SectionTwo /></> : <SectionThree />) : null
     
 }
