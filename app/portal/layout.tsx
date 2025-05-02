@@ -17,11 +17,12 @@ export default async function Layout({children}:{children: React.ReactNode}){
         contactNumber : data.contactNumber
     }
 
+
+
     return(
-        <section className="grid grid-cols-[20%_80%] container min-h-[92.1vh] h-full gap-10 pt-8">
+        <section className="grid grid-cols-[20%_80%] container min-h-[92.1vh] h-full gap-10 py-8">
             <SideBar User={userData}/>
             {children}
-
         </section>
     )
 }
