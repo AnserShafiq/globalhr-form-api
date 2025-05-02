@@ -51,7 +51,7 @@ const SectionTwo = () => {
     )
 }
 
-const SectionThree = () => {
+const SectionThree = ({name}:{name?:string}) => {
     
     return(
         <>
@@ -64,19 +64,19 @@ const SectionThree = () => {
             <div className="flex items-center justify-between gap-4 container">
                 <Image src="/images/icon.png" alt="GlobalHR" className="w-full max-w-[242.3px] lg:max-w-[22%] h-header-icon" width={1000} height={1000} />
                 <div className='hidden lg:flex items-center justify-center gap-8'>
-                    <h3 className='text-sm font-poppins tracking-wide font-semibold border-b-2 border-black text-red-ghr'>Hello</h3>
+                    <h3 className='text-sm font-poppins tracking-wide font-semibold border-b-2 border-black text-red-ghr'>Hello, {name}</h3>
                 </div>
             </div>
         </div>
         </>
     )
 }
- 
-export default function Header() {
+//eslint-disable-next-line
+export default function Header({username}:{username:any}) {
     const pathname = usePathname();
     const isPortalActive = pathname?.includes('/portal')
     const forContact = pathname.includes('/contact-us')
     return  !forContact ? 
-    (!isPortalActive ? <><SectionOne /><SectionTwo /></> : <SectionThree />) : null
+    (!isPortalActive ? <><SectionOne /><SectionTwo /></> : <SectionThree name={username} />) : null
     
 }

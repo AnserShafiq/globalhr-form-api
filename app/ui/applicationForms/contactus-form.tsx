@@ -48,7 +48,7 @@ export default function ContactUsForm(){
                     </SelectOptions>
                     <div className="col-span-2">
                         <Label name="message" label="Message" required />
-                        <textarea rows={3} name="message" id="message" className="w-full bg-gray-200 rounded-xl p-2" />
+                        <textarea rows={3} name="message" id="message" className="w-full bg-gray-200 rounded-xl p-2" required/>
                     </div>
                     <div className="col-span-2 flex items-center justify-center">
                         <button className="text-gray-100 bg-red-ghr font-semibold tracking-wide px-3 py-2 rounded-xl cursor-pointer mx-auto w-fit transition-all ease-in-out duration-500 hover:scale-[1.05]">Submit</button>

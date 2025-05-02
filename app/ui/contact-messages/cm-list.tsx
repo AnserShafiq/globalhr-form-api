@@ -127,7 +127,7 @@ export default function CM_List() {
                   className={`grid grid-cols-[20%_20%_20%_30%_10%] font-poppins text-md font-light p-3 border-b border-gray-200 ${selected.includes(msg.id)? 'bg-gray-300':''}`}
                 >
                   <td className="py-1 cursor-pointer hover:underline" onClick={() => selectionCall(msg.id)}>{`${msg?.name}`}</td>
-                  <td className="pl-2 py-1">{msg.email}</td>
+                  <td className="px-2 py-1 text-nowrap overflow-hidden">{msg.email}</td>
                   <td className="px-2 py-1 text-nowrap overflow-hidden">{msg.reason}</td>
                   <td className="px-2 py-1 text-nowrap overflow-hidden">{msg.message}</td>
                   <td className="pl-2 py-1 flex justify-center">

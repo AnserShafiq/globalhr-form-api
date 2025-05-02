@@ -3,6 +3,7 @@ import { Geist, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "./ui/header";
 import Footer from "./ui/footer";
+import { auth } from "@/auth";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -17,18 +18,24 @@ export const metadata: Metadata = {
   description: "A job application form for job seekers provided by GlobalHR",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
 
+  const session = await auth()
+  const name = session?.user?.name;
+  
+
+   
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${poppins.variable} antialiased`}
       >
-        <Header />
+
+        <Header username={name} />
         {children}
         <Footer />
       </body>
