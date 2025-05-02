@@ -2,7 +2,7 @@ import { Emp_List } from "@/app/lib/element";
 import Link from "next/link";
 
 export default async function Em_Section(){
-    const data:[Emp_List] = await fetch(`${process.env.PUBLIC_URL}/api/employers/list/latest`).then((res) => res.json());
+    const data:[Emp_List] = await fetch(`${process.env.PUBLIC_URL}/api/employers/list/latest`,{cache: "no-store"}).then((res) => res.json());
     return(
         <div className="w-full h-fit overflow-auto flex flex-col">
             <h1 className="text-lg font-semibold font-poppins w-fit mx-auto my-2 underline">Employers</h1>
@@ -20,7 +20,9 @@ export default async function Em_Section(){
                     </tr>
                 </thead>
                 <tbody className="w-full">
-                    {
+                {
+                    data.length > 0 ?                 
+                    
                         data.map((Em) => 
                             <tr key={Em?.id} className="grid grid-cols-[20%_15%_20%_15%_20%_10%] font-poppins text-md font-[300] p-3 border-b border-gray-200 ">
                                 <td className='py-1'>
@@ -43,10 +45,14 @@ export default async function Em_Section(){
                                 </td>
                             </tr>
                         )
-                    }
+                    
+                 : <tr className="text-md font-semibold tracking-wide font-poppins flex items-center justify-center h-[19rem]">
+                    <td>No employer</td>
+                </tr>
+                }
                 </tbody>
             </table>
-            <Link href={'/portal/employers'} className="mt-4 text-sm text-red-ghr border-b border-black font-poppins w-fit mx-auto">Veiw All</Link>
+            <Link href={'/portal/employers'} className={`${data.length > 0 ?'':'hidden'} mt-4 text-sm text-red-ghr border-b border-black font-poppins w-fit mx-auto`}>Veiw All</Link>
         </div>
     )
 }

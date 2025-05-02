@@ -150,7 +150,7 @@ export default function JobSeekersList() {
             </tbody>
           </table>
           
-          <div className="w-full flex gap-4 items-center justify-center mt-4">
+          <div className={`w-full ${ data.length > 12 ? 'flex': 'hidden'} gap-4 items-center justify-center mt-4`}>
             <button 
               onClick={decreasePage} 
               disabled={currentPage === 1}

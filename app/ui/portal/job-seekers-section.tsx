@@ -12,7 +12,7 @@ interface JS{
 
 export default async function JS_Section(){
     
-    const data:[JS] = await fetch(`${process.env.PUBLIC_URL}/api/job-seekers/list/latest`).then((res) => res.json());
+    const data:[JS] = await fetch(`${process.env.PUBLIC_URL}/api/job-seekers/list/latest`,{next: {revalidate: 60}}).then((res) => res.json());
     // console.log(data)
     return(
         <div className="w-full h-fit overflow-auto flex flex-col">
@@ -40,8 +40,9 @@ export default async function JS_Section(){
                         </td>
                     </tr>
                 </thead>
-                <tbody className="w-full">
-                    {
+                <tbody>
+                {
+                    data.length>0 ? 
                         data.map((js) => 
                             <tr key={js?.id} className="grid grid-cols-[20%_15%_15%_20%_20%_10%] font-poppins text-md font-[300] p-3 border-b border-gray-200 ">
                                 <td className='py-1'>
@@ -64,10 +65,13 @@ export default async function JS_Section(){
                                 </td>
                             </tr>
                         )
-                    }
+                : <tr className="text-md font-semibold tracking-wide font-poppins flex items-center justify-center h-[19rem]">
+                    <td>No jobseeker</td>
+                </tr>
+                }
                 </tbody>
             </table>
-            <Link href='/portal/job-seekers' className="mt-4 text-sm text-red-ghr border-b border-black font-poppins w-fit mx-auto">Veiw All</Link>
+            <Link href='/portal/job-seekers' className={`${data.length > 0 ?'':'hidden'} mt-4 text-sm text-red-ghr border-b border-black font-poppins w-fit mx-auto`}>Veiw All</Link>
         </div>
     )
 }
