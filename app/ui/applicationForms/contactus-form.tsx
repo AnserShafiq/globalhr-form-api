@@ -41,7 +41,7 @@ export default function ContactUsForm(){
                     <InputField type="email" name="email" label="E-mail" required/>
                     <InputField type="tel" name="contactNumber" label="Contact Number" required/>
                     <SelectOptions name="contactReason" label="Reason" required={true} className='h-full'>
-                        <option defaultChecked disabled className="py-2">Select reason</option>
+                        <option defaultChecked  className="py-2">Select reason</option>
                         <option value={'Looking for job options'}>Looking for job options</option>
                         <option value={'Needs the candidates'}>Needs the candidates</option>
                         <option value={'Other'}>Other</option>
