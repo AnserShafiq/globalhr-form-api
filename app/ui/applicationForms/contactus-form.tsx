@@ -16,7 +16,7 @@ export default function ContactUsForm(){
             if(response.ok){
                 setSubmission(true);
                 setTimeout(() => {
-                    window.location.href ='https://www.hrglobal.ca/'
+                    window.location.reload()
                 },4000)
             }
         } catch (error) {
@@ -26,7 +26,7 @@ export default function ContactUsForm(){
     }
 
     return submission ? (
-        <div className="w-full h-full bg-gray-100 flex flex-col justify-center justify-center text-center rounded-xl shadow-lg p-10">
+        <div className="w-full h-[500px] bg-gray-100 flex flex-col justify-center justify-center text-center rounded-xl shadow-lg p-10">
             <h1 className="text-xl font-semibold tracking-wide font-poppins">Thank you for reaching us.</h1>
         </div>
     ):(
