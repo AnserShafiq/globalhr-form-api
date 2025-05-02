@@ -82,3 +82,14 @@ export interface Emp_Details{
     message: string,
     submissionDate: string
 }
+
+
+export interface ContactMessage{
+    id: string,
+    name:string,
+    email:string,
+    contactNumber: string,
+    reason:string,
+    message: string,
+    dated: string,
+}
