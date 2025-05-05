@@ -1,6 +1,8 @@
 'use client'
 import { User } from "@/app/lib/element";
 import React, { useEffect, useState } from "react";
+import Loading_Details from "../loading-display/loading-details";
+import { Eye, EyeOff } from "lucide-react";
 
 
 
@@ -10,6 +12,11 @@ export default function EditUser({id}:{id:string}){
     const [newPassword, setNewPassword] = useState<string>('')
     const [repeatNewPassword, setRepeatNewPassword] = useState<string>('')
     const [error, setError] = useState<string>('');
+    const [passwordDisplay, setPasswordDisplay] = useState({
+        current: false,
+        new: false,
+        re_new: false,
+    })
     const [loading, setLoading] = useState<boolean>(true);
     
     const fetchData = async(id:string) => {
@@ -32,9 +39,7 @@ export default function EditUser({id}:{id:string}){
 
     if(loading){
         return(
-            <div>
-                Loading your profile...
-            </div>
+            <Loading_Details />
         )
     }
 
@@ -139,33 +144,49 @@ export default function EditUser({id}:{id:string}){
                 </div>
                 <h1 className="text-lg font-bold underline tracking-wide mb-2 mt-4">{`To Change Password`}</h1>
                 <div className="grid grid-cols-3 gap-7 min-h-[150px]">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col relative">
                         <label htmlFor={'current-password'} className="text-md lg:text-lg font-medium font-poppins capitalize relative w-fit">
                             Current password
                         </label>
-                        <input type={'password'} onChange={(e) => CheckCurrent(e.target.value)} name={'current-password'} id={'current-password'} className={`bg-gray-200 rounded-xl p-2 `} />
+                        <div className="relative flex flex-col">
+                        <input type={passwordDisplay.current ? 'text':'password'} onChange={(e) => CheckCurrent(e.target.value)} name={'current-password'} id={'current-password'} className={`bg-gray-200 rounded-xl p-2 relative`} />
                         {
                             error === 'E1' ? <h4 className="text-red-ghr font-bold uppercase text-xs mt-1">Incorrect password</h4>: null
                         }
+                        {
+                            passwordDisplay.current ? <Eye className="absolute top-2 right-2 w-5 cursor-pointer text-gray-700" onClick={() => setPasswordDisplay(prev => ({...prev, current: !prev.current}))}/>  : <EyeOff className="absolute top-2 right-2 w-5 cursor-pointer text-gray-500" onClick={() => setPasswordDisplay(prev => ({...prev, current: !prev.current}))}/> 
+                        }
+                        </div>
+                        
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor={'new-password'} className="text-md lg:text-lg font-medium font-poppins capitalize relative w-fit">
                             New password
                         </label>
-                        <input type={'password'} name={'new-password'} onChange={(e) => CheckNew(e.target.value)} id={'new-password'} className={`bg-gray-200 rounded-xl p-2 `} required={currentPassword.length > 8 ? true : false}/>
-                        {
-                            error === 'E2' ? <h4 className="text-red-ghr font-bold uppercase text-xs mt-1">New password should be different from current one</h4>
-                            : error === 'E3' ? <h4 className="text-red-ghr font-bold uppercase text-xs mt-1">{`must have length >= 8 and atleast one character, one number and one special character[!@#$%^&*(),.?":]`}</h4>: null
-                        }
+                        <div className="relative flex flex-col">
+                            <input type={passwordDisplay.new ? 'text': 'password' } name={'new-password'} onChange={(e) => CheckNew(e.target.value)} id={'new-password'} className={`bg-gray-200 rounded-xl p-2 relative`} required={currentPassword.length > 8 ? true : false}/>
+                            {
+                                error === 'E2' ? <h4 className="text-red-ghr font-bold uppercase text-xs mt-1 absolute bottom-3">New password should be different from current one</h4>
+                                : error === 'E3' ? <h4 className="text-red-ghr font-bold uppercase text-xs mt-1">{`must have length >= 8 and atleast one character, one number and one special character[!@#$%^&*(),.?":]`}</h4>: null
+                            }
+                            {
+                                passwordDisplay.new ? <Eye className="absolute top-2 right-2 w-5 cursor-pointer text-gray-700" onClick={() => setPasswordDisplay(prev => ({...prev, new: !prev.new}))}/>  : <EyeOff className="absolute top-2 right-2 w-5 cursor-pointer text-gray-500" onClick={() => setPasswordDisplay(prev => ({...prev, new: !prev.new}))}/> 
+                            }
+                        </div>
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor={'re-new-password'} className="text-md lg:text-lg font-medium font-poppins capitalize relative w-fit">
                             Re-enter New password
                         </label>
-                        <input type={'password'} name={'re-new-password'} onChange={(e) => RecheckNew(e.target.value)} id={'re-new-password'} className={`bg-gray-200 rounded-xl p-2 `} required={currentPassword.length > 8 ? true : false}/>
-                        {
-                            error === 'E4' ? <h4 className="text-red-ghr font-bold uppercase text-xs mt-1">{`New password doesn't match.`}</h4>: null
-                        }
+                        <div className="flex flex-col relative">
+                            <input type={'password'} name={'re-new-password'} onChange={(e) => RecheckNew(e.target.value)} id={'re-new-password'} className={`bg-gray-200 rounded-xl p-2 `} required={currentPassword.length > 8 ? true : false}/>
+                            {
+                                error === 'E4' ? <h4 className="text-red-ghr font-bold uppercase text-xs mt-1">{`New password doesn't match.`}</h4>: null
+                            }
+                            {
+                                passwordDisplay.re_new ? <Eye className="absolute top-2 right-2 w-5 cursor-pointer text-gray-700" onClick={() => setPasswordDisplay(prev => ({...prev, re_new: !prev.re_new}))}/>  : <EyeOff className="absolute top-2 right-2 w-5 cursor-pointer text-gray-500" onClick={() => setPasswordDisplay(prev => ({...prev, re_new: !prev.re_new}))}/> 
+                            }
+                        </div>
                     </div>
 
                 </div>

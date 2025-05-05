@@ -2,7 +2,7 @@ import { Emp_List } from "@/app/lib/element";
 import Link from "next/link";
 
 export default async function Em_Section(){
-    const data:[Emp_List] = await fetch(`${process.env.PUBLIC_URL}/api/employers/list/latest`,{cache: "no-store"}).then((res) => res.json());
+    const data:Emp_List[] = await fetch(`${process.env.PUBLIC_URL}/api/employers/list/latest`,{cache: "no-store"}).then((res) => res.json());
     return(
         <div className="w-full h-fit overflow-auto flex flex-col">
             <h1 className="text-lg font-semibold font-poppins w-fit mx-auto my-2 underline">Employers</h1>
@@ -52,7 +52,7 @@ export default async function Em_Section(){
                 }
                 </tbody>
             </table>
-            <Link href={'/portal/employers'} className={`${data.length > 0 ?'':'hidden'} mt-4 text-sm text-red-ghr border-b border-black font-poppins w-fit mx-auto`}>Veiw All</Link>
+            <Link href={'/portal/employers'} className={`${data.length > 4 ?'':'hidden'} mt-4 text-sm text-red-ghr border-b border-black font-poppins w-fit mx-auto`}>Veiw All</Link>
         </div>
     )
 }
